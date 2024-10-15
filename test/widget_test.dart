@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import '../lib/views/note_app.dart';
 import 'package:myapp/main.dart';
 
 void main() {
