@@ -1,10 +1,9 @@
-// views/note_home_page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/note_controller.dart';
+import 'webview_page.dart'; // Pastikan mengimpor WebViewPage
 
 class NoteHomePage extends StatelessWidget {
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3689247972.
   final NoteController noteController = Get.put(NoteController());
   final TextEditingController _textEditingController = TextEditingController();
   String? _imageUrl;
@@ -15,7 +14,6 @@ class NoteHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('GetX Note Taking App with random Unsplash Images'),
       ),
-
       body: Column(
         children: <Widget>[
           Padding(
@@ -28,19 +26,17 @@ class NoteHomePage extends StatelessWidget {
               ),
             ),
           ),
-
           ElevatedButton(
             onPressed: () async {
               _imageUrl = await noteController.fetchRandomImage();
               if (_imageUrl == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Failed to fetch image')));
+                  SnackBar(content: Text('Failed to fetch image')),
+                );
               }
             },
-
             child: Text('Fetch Random Image'),
           ),
-
           ElevatedButton(
             onPressed: () {
               noteController.addNote(
@@ -51,6 +47,19 @@ class NoteHomePage extends StatelessWidget {
               _imageUrl = null; // Clear image path after adding the note
             },
             child: Text('Add Note'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Cek apakah _imageUrl ada, jika ada, navigasikan ke WebViewPage
+              if (_imageUrl != null) {
+                Get.to(() => WebViewPage(url: _imageUrl!));
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('No image URL available')),
+                );
+              }
+            },
+            child: Text('Open Image in WebView'),
           ),
           Expanded(
             child: Obx(
