@@ -1,5 +1,6 @@
 // controllers/note_controller.dart
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/note_model.dart';
@@ -12,6 +13,7 @@ class NoteController extends GetxController {
   static const String secretKey =
       'YxD4LCt0EE9-DhsvywE7OfsUu3M5Mh6TQvI0FAHUG5o'; // Replace with your secret key
 
+  final ImagePicker _picker = ImagePicker();
 
   // Method to add a note with or without an image
   void addNote(String noteText, String? imageURL) {
