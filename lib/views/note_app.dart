@@ -1,10 +1,12 @@
-// views/note_app.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/note_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'login_page.dart';
 import 'note_home_page.dart';
 
 class NoteApp extends StatelessWidget {
+  const NoteApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -12,10 +14,9 @@ class NoteApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: NoteHomePage(),
-      initialBinding: BindingsBuilder(() {
-        Get.put(NoteController());  // Initialize the controller globally
-      }),
+      home: FirebaseAuth.instance.currentUser == null
+          ? LoginPage()
+          : NoteHomePage(),
     );
   }
 }

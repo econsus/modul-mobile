@@ -8,11 +8,13 @@ class NoteHomePage extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
   String? _imageUrl;
 
+  NoteHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('GetX Note Taking App with random Unsplash Images'),
+        title: const Text('GetX Note Taking App with random Unsplash Images'),
       ),
       body: Column(
         children: <Widget>[
@@ -20,7 +22,7 @@ class NoteHomePage extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: _textEditingController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Enter your note',
               ),
@@ -31,11 +33,11 @@ class NoteHomePage extends StatelessWidget {
               _imageUrl = await noteController.fetchRandomImage();
               if (_imageUrl == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Failed to fetch image')),
+                  const SnackBar(content: Text('Failed to fetch image')),
                 );
               }
             },
-            child: Text('Fetch Random Image'),
+            child: const Text('Fetch Random Image'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -46,7 +48,7 @@ class NoteHomePage extends StatelessWidget {
               _textEditingController.clear();
               _imageUrl = null; // Clear image path after adding the note
             },
-            child: Text('Add Note'),
+            child: const Text('Add Note'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -55,11 +57,11 @@ class NoteHomePage extends StatelessWidget {
                 Get.to(() => WebViewPage(url: _imageUrl!));
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('No image URL available')),
+                  const SnackBar(content: Text('No image URL available')),
                 );
               }
             },
-            child: Text('Open Image in WebView'),
+            child: const Text('Open Image in WebView'),
           ),
           Expanded(
             child: Obx(
@@ -78,7 +80,7 @@ class NoteHomePage extends StatelessWidget {
                           )
                         : null,
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       onPressed: () {
                         noteController.deleteNoteAtIndex(index);
                       },
